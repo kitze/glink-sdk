@@ -221,11 +221,19 @@ program
   .action((method: string, path: string, ...args: unknown[]) => {
     const command = getCommandFromArgs(args);
     const rawBody = args.find((arg): arg is string => typeof arg === "string");
+    const normalizedMethod = method.toUpperCase();
+    const shouldSendJsonBody =
+      rawBody ||
+      normalizedMethod === "POST" ||
+      normalizedMethod === "PUT" ||
+      normalizedMethod === "PATCH";
 
     return runAuthed(command, () =>
       request(path, {
-        method: method.toUpperCase(),
-        body: rawBody ? JSON.stringify(parseJson(rawBody)) : undefined,
+        method: normalizedMethod,
+        body: shouldSendJsonBody
+          ? JSON.stringify(rawBody ? parseJson(rawBody) : {})
+          : undefined,
       }),
     );
   });
