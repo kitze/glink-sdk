@@ -1,0 +1,19 @@
+import { defineConfig } from "@hey-api/openapi-ts";
+
+export default defineConfig({
+  input: "./openapi.json",
+  output: {
+    path: "src/client",
+    format: "prettier",
+  },
+  client: {
+    baseUrl: "https://glink.so/api/rest",
+  },
+  plugins: [
+    "@hey-api/typescript",
+    {
+      name: "@hey-api/sdk",
+      asClass: true,
+    },
+  ],
+});

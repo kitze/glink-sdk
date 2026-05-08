@@ -1,0 +1,15 @@
+{
+  "name": "glink-monorepo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r build",
+    "clean": "pnpm -r clean",
+    "generate": "pnpm --filter glink-sdk generate",
+    "refresh-openapi": "node scripts/refresh-openapi.mjs"
+  },
+  "engines": {
+    "node": ">=20.19.0",
+    "pnpm": ">=9"
+  }
+}
